@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Border Camera</string>
+        <!-- Font Awesome icons -->
+    <string name="fa_map_marker">&#xf041;</string>
+    <string name="fa_map_o">&#xf278;</string>
+    <string name="fa_map">&#xf279;</string>
+    <string name="fa_car">&#xf1b9;</string>
+    <string name="fa_truck">&#xf0d1;</string>
+    <string name="fa_camera">&#xf030;</string>
+    <string name="fa_info">&#xf05a;</string>
+    <string name="fa_road">&#xf018;</string>
+    
+	<!-- lat-long coordinates-->
+    <string name="lavoriskes">54.7163,25.743575</string>
+    <string name="kotlovka">54.716824,25.744572</string>
+
+</resources>
