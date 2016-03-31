@@ -7,6 +7,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ public class QueueParser {
     private static String URL_LT = "http://www.pkpd.lt/lt/border";
     private static ArrayList<String[]> borders;
 
-    private String[] getQueuesBY() {
+    private String[] getQueuesBY(String filePath) {
         Document doc;
         Elements links;
         ArrayList<String> queue = new ArrayList<String>();
@@ -25,7 +26,8 @@ public class QueueParser {
         for (String kpp : kppArray) {
             Log.i("КПП", kpp);
             try {
-                doc = Jsoup.connect(URL_BY).timeout(3000).get();
+                File input = new File(filePath);
+                doc = Jsoup.parse(input, "UTF-8");
                 links = doc.getElementsByAttributeValue("title", kpp);
 
                 queue.add(links.get(0).text());
@@ -40,10 +42,11 @@ public class QueueParser {
         return queueBY;
     }
 
-    private String[] getQueuesLT() {
+    private String[] getQueuesLT(String filePath) {
         Document doc = null;
         try {
-            doc = Jsoup.connect(URL_LT).timeout(5000).get();
+            File input = new File(filePath);
+            doc = Jsoup.parse(input, "UTF-8");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -75,7 +78,7 @@ public class QueueParser {
         }
     }
 
-    public ArrayList<String[]> createArrayList() {
+    public ArrayList<String[]> createArrayList(String filePath) {
         String[] lavoriskes = {"LT Lavoriškės", "http://www.pkpd.lt/project/modules/border/assets/image.php?video=lavoriskes",
                 "0", "0", "time"};
         String[] kotlovka = {"BY Котловка", "http://cam.gpk.gov.by/kotlovka-gtk.jpg",
@@ -96,8 +99,8 @@ public class QueueParser {
         String[] privalka = {"BY Привалка", "http://cam.gpk.gov.by/privalka-gtk.jpg",
                 "0", "0", "time"};
 
-        String [] queuesLT = getQueuesLT();
-        String [] queuesBY = getQueuesBY();
+        String [] queuesLT = getQueuesLT(filePath+"/pkpd.lt");
+        String [] queuesBY = getQueuesBY(filePath+"/gpk.by");
 
         if (queuesLT != null) {
             lavoriskes[2] = queuesLT[0];
